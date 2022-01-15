@@ -26,6 +26,8 @@ public class Splitwise {
         String password = scanner.nextLine();
         if(checkFriend(name,password)){
             System.out.println("Logged in successfully");
+            enter();
+            clear();
             trueLogin();
         }
         else{
@@ -85,6 +87,8 @@ public class Splitwise {
         else{
             System.out.println("Sorry you dont have enough money");
         }
+        enter();
+        clear();
         trueLogin();
     }
     public static void addAmountToFriends(double bill,String name,String number){
@@ -98,6 +102,8 @@ public class Splitwise {
         for(int i=0;i<friends.get(indexF).expenses.size();i++){
             System.out.println(friends.get(indexF).expenses.get(i).res+"\t"+friends.get(indexF).expenses.get(i).bill);
         }
+        enter();
+        clear();
         trueLogin();
     }
     public static void addFriend() {
@@ -109,6 +115,8 @@ public class Splitwise {
         System.out.println("Enter mobile number");
         String number = scanner.nextLine();
         friends.add(new Friends(name,password,number,new ArrayList<>(),0,new ArrayList<>()));
+        enter();
+        clear();
         trueLogin();
     }
     public static void amountToPay(){
@@ -129,17 +137,22 @@ public class Splitwise {
                 System.out.println("Insufficient money in wallet");
             }
         }
+        scanner.nextLine();
+        enter();
+        clear();
         trueLogin();
     }
     public static void amountToRecieve() {
         for(int i=0;i<friends.size();i++){
-            if(i==indexF) continue;
             for(int j=0;j<friends.get(i).pay.size();j++){
                 if(friends.get(indexF).name.equals(friends.get(i).pay.get(j).name)){
                     System.out.println(friends.get(i).name+"\t"+friends.get(i).pay.get(j).amount);
                 }
             }
         }
+        scanner.nextLine();
+        enter();
+        clear();
         trueLogin();
     }
     public static int checkFriend2(String name,String number){
@@ -154,10 +167,16 @@ public class Splitwise {
         System.out.println("Enter amount to add");
         double m = scanner.nextDouble();
         friends.get(indexF).wallet+=m;
+        scanner.nextLine();
+        enter();
+        clear();
         trueLogin();
     }
     public static void viewWallet() {
         System.out.println("Balance in wallet : "+friends.get(indexF).wallet);
+        scanner.nextLine();
+        enter();
+        clear();
         trueLogin();
     }
     public static void clear(){
