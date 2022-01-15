@@ -94,7 +94,6 @@ public class Splitwise {
     public static void addAmountToFriends(double bill,String name,String number){
         double div = (bill-(bill/(came.size()+1)))/(came.size()-1);
         for(int i=0;i<came.size();i++){
-            if(i==indexF) continue;
             friends.get(came.get(i)).pay.add(new Pay(name,div,number));
         }
     }
@@ -144,6 +143,7 @@ public class Splitwise {
     }
     public static void amountToRecieve() {
         for(int i=0;i<friends.size();i++){
+            if(i==indexF) continue;
             for(int j=0;j<friends.get(i).pay.size();j++){
                 if(friends.get(indexF).name.equals(friends.get(i).pay.get(j).name)){
                     System.out.println(friends.get(i).name+"\t"+friends.get(i).pay.get(j).amount);
