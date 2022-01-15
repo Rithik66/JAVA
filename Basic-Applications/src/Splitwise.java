@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Splitwise {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Friends> friends = new ArrayList<>();
+    static ArrayList<Integer> came = new ArrayList<>();
     static int indexF;
     public static void main(String[]args){
         frnds();
@@ -63,8 +64,16 @@ public class Splitwise {
         }
     }
     public static void addExpense() {
-        System.out.println("Enter the reason");
+        System.out.println("Select friends those came with you");
+        System.out.println("Name\tNumber\t\t(Y/N)");
         scanner.nextLine();
+        for(int i=0;i<friends.size();i++){
+            if(i==indexF) continue;
+            System.out.print(friends.get(i).name+"\t"+friends.get(i).number+"\t");
+            String choice = scanner.nextLine().toUpperCase();
+            if(choice.equals("Y") || choice.equals("YES")) came.add(i);
+        }
+        System.out.println("Enter the reason");
         String res = scanner.nextLine();
         System.out.println("Enter the amount");
         double bill = scanner.nextDouble();
@@ -79,10 +88,10 @@ public class Splitwise {
         trueLogin();
     }
     public static void addAmountToFriends(double bill,String name,String number){
-        double div = (bill-(bill/friends.size()))/(friends.size()-1);
-        for(int i=0;i<friends.size();i++){
+        double div = (bill-(bill/(came.size()+1)))/(came.size()-1);
+        for(int i=0;i<came.size();i++){
             if(i==indexF) continue;
-            friends.get(i).pay.add(new Pay(name,div,number));
+            friends.get(came.get(i)).pay.add(new Pay(name,div,number));
         }
     }
     public static void viewExpenses() {
