@@ -140,8 +140,52 @@ public class VehicleRentalSystem {
         return false;
     }
     public static void searchVehicle() {
-        System.out.println("Search by Name");
-        System.out.println("Search by Name");
+        System.out.println("1. Search by Name");
+        System.out.println("2. Search by Available count");
+        int a = scanner.nextInt();
+        switch(a){
+            case 1:searchByName();break;
+            case 2:searchByAvail();break;
+            default: trueAdmin();
+        }
+    }
+    public static void searchByName() {
+        sort(vehicles);
+        System.out.println("Enter a word or letter to search");
+        scanner.nextLine();
+        String w = scanner.nextLine();
+        for(int i=0;i<vehicles.size();i++){
+            if(vehicles.get(i).name.contains(w)){
+                System.out.println(vehicles.get(i));
+            }
+        }
+    }
+    public static void searchByAvail() {
+        sort(vehicles);
+        System.out.println("Enter a word or letter to search");
+        scanner.nextLine();
+        String w = scanner.nextLine();
+        for(int i=0;i<vehicles.size();i++){
+            if(vehicles.get(i).name.contains(w)){
+                System.out.println(vehicles.get(i));
+            }
+        }
+    }
+    public static void sort(ArrayList<Vehicle> vehicles){
+        for(int i=0;i<vehicles.size()-1;i++){
+            for(int j=i+1;j<vehicles.size();j++){
+                if(vehicles.get(i).name.compareTo(vehicles.get(j).name)>0){
+                    Book temp = vehicles.get(i);
+                    vehicles.set(i,vehicles.get(j));
+                    vehicles.set(j,temp);
+                }
+                else if(vehicles.get(i).quantity>vehicles.get(j).quantity){
+                    Book temp = vehicles.get(i);
+                    vehicles.set(i,vehicles.get(j));
+                    vehicles.set(j,temp);
+                }
+            }
+        }
     }
     public static void borrowerHome() {
         System.out.println("1. SignIn");
