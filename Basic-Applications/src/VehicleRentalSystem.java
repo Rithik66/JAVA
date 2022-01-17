@@ -5,7 +5,7 @@ public class VehicleRentalSystem {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Vehicle> vehicles = new ArrayList<>();
     static ArrayList<Borrower> borrowers = new ArrayList<>();
-    static int indexV;
+    static int indexV,indexB;
     public static void main(String[]args){
         home();
     }
@@ -51,6 +51,7 @@ public class VehicleRentalSystem {
             case 5: changeDeposit(); break;
             default : home();
         }
+        trueAdmin();
     }
     public static void addVehicle() {
         scanner.nextLine();
@@ -66,9 +67,8 @@ public class VehicleRentalSystem {
         int avail = scanner.nextInt();
         System.out.println("Cost of the Vehicle");
         double cost = scanner.nextDouble();
-        vehicles.add(new Vehicle(name,type,platenumber,model,avail,cost));
+        vehicles.add(new Vehicle(name,type,platenumber,model,driven,avail,cost));
         System.out.println("Vehicle added successfully");
-        trueAdmin();
     }
     public static void modifyVehicle() {
         scanner.nextLine();
@@ -122,12 +122,11 @@ public class VehicleRentalSystem {
             }
         }
         else System.out.println("No vehicle found");
-        trueAdmin();
     }
     public static void viewVehicles() {
-        System.out.println("Name\tType\tPlatenumber\tModel\tAvail\tCost");
+        System.out.println("S.No\tName\tType\tPlatenumber\tModel\tAvail\tCost");
         for(int i=0;i<vehicles.size();i++){
-            System.out.println(vehicles.get(i));
+            System.out.println((i+1)+"\t"+vehicles.get(i));
         }
     }
     public static boolean checkVehicle(String platenumber) {
@@ -139,7 +138,7 @@ public class VehicleRentalSystem {
         }
         return false;
     }
-    public static void searchVehicle() {
+    public static void searchVehicle(){
         System.out.println("1. Search by Name");
         System.out.println("2. Search by Available count");
         int a = scanner.nextInt();
@@ -149,7 +148,7 @@ public class VehicleRentalSystem {
             default: trueAdmin();
         }
     }
-    public static void searchByName() {
+    public static void searchByName(){
         sort(vehicles);
         System.out.println("Enter a word or letter to search");
         scanner.nextLine();
@@ -160,13 +159,12 @@ public class VehicleRentalSystem {
             }
         }
     }
-    public static void searchByAvail() {
+    public static void searchByAvail(){
         sort(vehicles);
         System.out.println("Enter a word or letter to search");
-        scanner.nextLine();
-        String w = scanner.nextLine();
+        int a = scanner.nextInt();
         for(int i=0;i<vehicles.size();i++){
-            if(vehicles.get(i).name.contains(w)){
+            if(vehicles.get(i).avail>=a){
                 System.out.println(vehicles.get(i));
             }
         }
@@ -187,37 +185,109 @@ public class VehicleRentalSystem {
             }
         }
     }
-    public static void borrowerHome() {
+    public static void changeDeposit() {
+        
+    }
+    public static void borrowerHome(){
         System.out.println("1. SignIn");
         System.out.println("2. SignUp");
         System.out.println("3. Exit");
         int a = scanner.nextInt();
         if(a==1) signIn();
         else if(a==2) signUp();
-        else System.exit(1);
+        else home();
     }
     public static void signIn() {
-        
+        System.out.println("Username");
+        String name = scanner.nextLine();
+        System.out.println("Password");
+        String pass = scanner.nextLine();
+        if(checkBorrower(name,pass)) System.out.println("Login sucessfully");
+        else System.out.println("Enter valid details");
+        trueBorrower();
     }
     public static void signUp() {
-        
+        System.out.println("Username");
+        String name = scanner.nextLine();
+        System.out.println("Password");
+        String pass = scanner.nextLine();
+        if(checkBorrower(name,pass)) System.out.println("You already have an account");
+        else{
+            System.out.println("Mobile Number");
+            String number = scanner.nextLine();
+            borrowers.add(new Borrower(name,pass,number,borrowers.size()+1,0,30000,new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
+            System.out.println("Account added sucessfully");
+        }
+        trueBorrower();
     }
-    public static void trueBorrower() {
+    public static boolean checkBorrower(String name,String pass) {
+        for(int i=0;i<vehicles.size();i++){
+            if(borrowers.get(i).name.equals(name) && borrowers.get(i).pass.equals(pass)){
+                indexB=i;
+                return true;
+            }
+        }
+        return false;
+    }
+    public static void trueBorrower(){
         System.out.println("1. View Vehicles");
-        System.out.println("2. View Cart");
+        System.out.println("2. View WishList");
+        System.out.println("3. Exit");
+        int a = scanner.nextInt();
+        switch(a){
+            case 1:{
+                viewVehicles();
+                System.out.println("Enter S.No to add to WishList");
+                int c = scanner.nextInt();
+                borrowers.get(indexB).cart.add(vehicles.get(c-1));
+                break;
+            }
+            case 2:viewCart(); break;
+            default:borrowerHome();
+        }
+        trueBorrower();
+    }
+    public static void viewCart() {
+        System.out.println("S.No\tName\tType\tPlatenumber\tModel\tAvail\tCost");
+        for(int i=0;i<borrowers.get(indexB).cart.size();i++){
+            System.out.println((i+1)+"\t"+borrowers.get(indexB).cart.get(i));
+        }
+        System.out.println("1. Buy Now");
+        System.out.println("2. Remove a Car");
+        System.out.println("3. Go Back");
+        int a = scanner.nextInt();
+        if(a==1) buyNow();
+        else if(a==2) remCar();
+        else trueBorrower();
+        viewCart();
+    }
+    public static void buyNow() {
+        if(borrowers.get(indexB).cart.size()>1){
+            System.out.println("you can rent only one vehicle at a time");
+        }
+        else{
+            if(borrowers.get(indexB).deposit>=30000){
+                borrowers.get(indexB).order.add(borrowers.get(indexB).cart.get(0));
+                System.out.println("Thank you for buying");
+            }
+        }
+    }
+    public static void remCar() {
+        
     }
 }
 class Vehicle{
     String name,type,platenumber,model;
-    int avail;
+    int avail,driven;
     double cost;
-    Vehicle(String name,String type,String platenumber,String model,int avail,double cost){
+    Vehicle(String name,String type,String platenumber,String model,int avail,int driven,double cost){
         this.name=name;
         this.type=type;
         this.platenumber=platenumber;
         this.model=model;
         this.avail=avail;
         this.cost=cost;
+        this.driven=driven;
     }
     public String toString(){
         return name+"\t"+type+"\t"+platenumber+"\t"+model+"\t"+avail+"\t"+cost;
@@ -226,10 +296,18 @@ class Vehicle{
 class Borrower{
     String name,pass,number;
     int Id;
-    Borrower(String name,String pass,String number,int Id){
+    double wallet,deposit;
+    ArrayList<Vehicle> cart,order;
+    ArrayList<String> rents;
+    Borrower(String name,String pass,String number,int Id,double wallet,double deposit,ArrayList<Vehicle> cart,ArrayList<Vehicle> order,ArrayList<String> rents){
         this.name=name;
         this.pass=pass;
         this.number=number;
         this.Id=Id;
+        this.wallet=wallet;
+        this.deposit=deposit;
+        this.cart=new ArrayList<>(cart);
+        this.order=new ArrayList<>(order);
+        this.rents=new ArrayList<>(rents);
     }
 }
