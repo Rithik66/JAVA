@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class VehicleRentalSystem {
+public class VehicleRentalSystem{
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Vehicle> vehicles = new ArrayList<>();
     static ArrayList<Borrower> borrowers = new ArrayList<>();
@@ -248,10 +248,21 @@ public class VehicleRentalSystem {
                 break;
             }
             case 2:viewCart(); break;
-            case 3: returnCar(); break;
+            case 3:addMoney();break;
+            case 4:viewWallet(); break;
+            case 5:returnCar(); break;
             default:borrowerHome();
         }
         trueBorrower();
+    }
+    public static void addMoney() {
+        System.out.println("Enter the amount to add");
+        double amount = scanner.nextDouble();
+        borrowers.get(indexB).wallet+=amount;
+    }
+    public static void viewWallet() {
+        System.out.println("Amount in wallet");
+        System.out.println(borrowers.get(indexB).wallet);
     }
     public static void viewVehiclesBor() {
         System.out.println("S.No\tName\tType\tPlatenumber\tModel\tAvail\tCost");
