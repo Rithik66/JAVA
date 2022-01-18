@@ -141,14 +141,14 @@ public class Railway{
     public static void bookT() {
         System.out.println("1. COIMBATORE\n2. TIRUPUR\n3. ERODE\n4. SALEM\n5. KATPADI\n6. PERAMBUR\n7. CHENNAI");
         System.out.println("Enter Boarding point(For example 1 for Coimbatore) : ");
-        int a = scanner.nextInt();
+        int a = scanner.nextInt();//1
         System.out.println("Enter departure point : ");
-        int b=scanner.nextInt();
+        int b=scanner.nextInt();//5
         System.out.println();
         if(b<a) System.out.println("invalid information");
         else{
-            u.get(indexU).boarding=r[a-1];
-            u.get(indexU).departure=r[b-1];
+            u.get(indexU).boarding=r[a-1];//r[1-1(0)]
+            u.get(indexU).departure=r[b-1];//r[5-1(4)]
             checkB(a-1,b-1);
         }
         System.out.println();
@@ -166,14 +166,13 @@ public class Railway{
             }
             if(sum==0){
                 for(int j=s;j<=e;j++){
-                    seats[i][j]=1;
+                    seats[i][j]=1;               //(0)  1111000    (1)  0000000
                 }
                 check=1;
             }
             if(check==1){
                 u.get(indexU).seat=(i+1);
-                u.get(indexU).booked.add(new Booked(u.get(indexU).name, u.get(indexU).pass,
-                u.get(indexU).boarding, u.get(indexU).departure, u.get(indexU).seat,t++));
+                u.get(indexU).booked.add(new Booked(u.get(indexU).name, u.get(indexU).pass,u.get(indexU).boarding, u.get(indexU).departure, u.get(indexU).seat,t++));
                 System.out.println("Alloted Seat : "+(i+1));
                 break;
             }
@@ -185,7 +184,7 @@ public class Railway{
                     sum+=waitList[i][j];
                 }
                 if(sum==0){
-                    for(int j=s;j<=e;j++){
+                    for(int j=s;j<=e;j++){         //(0) 0011111   (11)
                         waitList[i][j]=1;
                     }
                     check=2;
@@ -245,7 +244,6 @@ public class Railway{
                 count++;
             }
         }
-        System.out.println(maxS+" "+maxE);
         label1:for(int i=0;i<u.size();i++){
             for(int j=0;j<u.get(i).booked.size();j++){
                 if(u.get(i).booked.get(j).seat>10 ){
@@ -317,7 +315,7 @@ public class Railway{
         System.out.print("\033[H\033[2J");  
         System.out.flush();
     }
-    public static void enter() {
+    public static void enter(){
         System.out.println("Press ENTER to continue");
         String s = scanner.nextLine();
         s+=s;

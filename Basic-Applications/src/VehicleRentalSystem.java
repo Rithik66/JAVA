@@ -15,8 +15,8 @@ public class VehicleRentalSystem{
         System.out.println("2. Borrower login");
         System.out.println("3. exit");
         int a = scanner.nextInt();
-        if(a==1) AdminHome();
-        else if(a==2) BorrowerHome();
+        if(a==1) adminHome();
+        else if(a==2) borrowerHome();
         else System.exit(1);
     }
     public static void adminHome() {
@@ -25,10 +25,8 @@ public class VehicleRentalSystem{
         String email = scanner.nextLine();
         System.out.println("Enter your password");
         String password = scanner.nextLine();
-        if(name.equals("adminvrs@gmail.com") && password.equals("12345")){
+        if(email.equals("adminvrs@gmail.com") && password.equals("12345")){
             System.out.println("Logged in successfully");
-            enter();
-            clear();
             trueAdmin();
         }
         else{
