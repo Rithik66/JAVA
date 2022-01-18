@@ -21,9 +21,9 @@ public class VehicleRentalSystem{
     }
     public static void adminHome() {
         scanner.nextLine();
-        System.out.println("Enter your name ");
+        System.out.println("Email");
         String email = scanner.nextLine();
-        System.out.println("Enter your password");
+        System.out.println("Password");
         String password = scanner.nextLine();
         if(email.equals("adminvrs@gmail.com") && password.equals("12345")){
             System.out.println("Logged in successfully");
@@ -38,15 +38,17 @@ public class VehicleRentalSystem{
         System.out.println("1. Add a Vehicle");
         System.out.println("2. Modify a Vehicle");
         System.out.println("3. View Vehicles");
-        System.out.println("4. Search Vehicle");
-        System.out.println("5. Change SecurityDeposit");
+        System.out.println("4. View Vehicles");
+        System.out.println("5. Search Vehicle");
+        System.out.println("6. Change SecurityDeposit");
+        System.out.println("7. Exit");
         int a = scanner.nextInt();
         switch(a){
             case 1: addVehicle();break;
             case 2: modifyVehicle(); break;
             case 3: viewVehicles(); break;
-            case 4: searchVehicle(); break;
-            case 5: changeDeposit(); break;
+            case 5: searchVehicle(); break;
+            case 6: changeDeposit(); break;
             default : home();
         }
         trueAdmin();
@@ -63,9 +65,9 @@ public class VehicleRentalSystem{
         String platenumber=scanner.nextLine();
         System.out.println("Availablity of the vehicle");
         int avail = scanner.nextInt();
-        System.out.println("Cost of the Vehicle");
+        System.out.println("Rent of the Vehicle");
         double cost = scanner.nextDouble();
-        vehicles.add(new Vehicle(name,type,platenumber,model,0,avail,cost));
+        vehicles.add(new Vehicle(name,type,platenumber,model,avail,0,"",cost));
         System.out.println("Vehicle added successfully");
     }
     public static void modifyVehicle() {
@@ -76,9 +78,10 @@ public class VehicleRentalSystem{
             System.out.println("1. Change Name");
             System.out.println("2. Change Type");
             System.out.println("3. Change Model");
-            System.out.println("4. Change Cost");
+            System.out.println("4. Change Rent");
             System.out.println("5. Change Availability");
             System.out.println("6. Delete Vehicle");
+            int a = scanner.nextInt();
             switch(a){
                 case 1:
                 System.out.println("( "+vehicles.get(indexV).name+" )");
@@ -104,14 +107,12 @@ public class VehicleRentalSystem{
                 case 4:
                 System.out.println("( "+vehicles.get(indexV).cost+" )");
                 System.out.println("Enter new Cost");
-                scanner.nextLine();
-                String cost = scanner.nextLine();
+                double cost = scanner.nextDouble();
                 vehicles.get(indexV).cost=cost;
                 break;
                 case 5:
                 System.out.println("( "+vehicles.get(indexV).avail+" )");
                 System.out.println("Enter new Availability count");
-                scanner.nextLine();
                 int avail = scanner.nextInt();
                 vehicles.get(indexV).avail=avail;
                 break;
@@ -122,7 +123,25 @@ public class VehicleRentalSystem{
         else System.out.println("No vehicle found");
     }
     public static void viewVehicles() {
-        System.out.println("S.No\tName\tType\tPlatenumber\tModel\tAvail\tDriven\tCost");
+        System.out.println("1. All Vehicles");
+        System.out.println("2. To Service");
+        System.out.println("3. Sorted by Rent");
+        System.out.println("4. Not Rented");
+        System.out.println("5. Rented");
+        System.out.println("6. Go Back");
+        int a = scanner.nextInt();
+        switch(a){
+            case 1:viewAll();break;
+            case 2:viewToService();break;
+            case 3:viewSortedRent();break;
+            case 4:viewNotRented();break;
+            case 5:viewRented();break;
+            default:trueAdmin();
+        }
+        viewVehicles();
+    }
+    public static void viewAll() {
+        System.out.println("S.No\tName\tType\tPlatenumber\tModel\tAvail\tDriven\tDamage\tCost");
         for(int i=0;i<vehicles.size();i++){
             System.out.println((i+1)+"\t"+vehicles.get(i));
         }
@@ -185,8 +204,12 @@ public class VehicleRentalSystem{
     }
     public static void changeDeposit() {
         for(int i=0;i<borrowers.size();i++){
-            
+            System.out.println(borrowers.get(i));
         }
+        System.out.println("Select a borrower id");
+        int a = scanner.nextInt();
+        System.out.println("Enter a amount to deposit");
+        borrowers.get(a-1).deposit+=scanner.nextDouble();
     }
     public static void borrowerHome(){
         System.out.println("1. SignIn");
@@ -199,14 +222,19 @@ public class VehicleRentalSystem{
     }
     public static void signIn() {
         System.out.println("Username");
+        scanner.nextLine();
         String name = scanner.nextLine();
         System.out.println("Password");
         String pass = scanner.nextLine();
-        if(checkBorrower(name,pass)) System.out.println("Login sucessfully");
+        if(checkBorrower(name,pass)){
+             System.out.println("Login sucessfully");
+             trueBorrower();
+        }
         else System.out.println("Enter valid details");
-        trueBorrower();
+        borrowerHome();
     }
     public static void signUp() {
+        scanner.nextLine();
         System.out.println("Username");
         String name = scanner.nextLine();
         System.out.println("Password");
@@ -218,10 +246,10 @@ public class VehicleRentalSystem{
             borrowers.add(new Borrower(name,pass,number,borrowers.size()+1,0,30000,new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
             System.out.println("Account added sucessfully");
         }
-        trueBorrower();
+        borrowerHome();
     }
     public static boolean checkBorrower(String name,String pass) {
-        for(int i=0;i<vehicles.size();i++){
+        for(int i=0;i<borrowers.size();i++){
             if(borrowers.get(i).name.equals(name) && borrowers.get(i).pass.equals(pass)){
                 indexB=i;
                 return true;
@@ -242,7 +270,12 @@ public class VehicleRentalSystem{
                 viewVehiclesBor();
                 System.out.println("Enter S.No to add to WishList");
                 int c = scanner.nextInt();
-                borrowers.get(indexB).cart.add(vehicles.get(c-1));
+                if(!checkinCart(vehicles.get(c-1).platenumber)){
+                    borrowers.get(indexB).cart.add(vehicles.get(c-1));
+                }
+                else{
+                    System.out.println("Cant add same vehicle twice");
+                }
                 break;
             }
             case 2:viewCart(); break;
@@ -252,6 +285,14 @@ public class VehicleRentalSystem{
             default:borrowerHome();
         }
         trueBorrower();
+    }
+    public static boolean checkinCart(String platenumber){
+        for(int i=0;i<borrowers.get(indexB).cart.size();i++){
+            if(borrowers.get(indexB).cart.get(i).platenumber.equals(platenumber)){
+                return true;
+            }
+        }
+        return false;
     }
     public static void addMoney() {
         System.out.println("Enter the amount to add");
@@ -288,12 +329,19 @@ public class VehicleRentalSystem{
             System.out.println("you can rent only one vehicle at a time");
         }
         else{
-            if((borrowers.get(indexB).deposit>=10000 && borrowers.get(indexB).cart.get(0).name.equals("car")) || (borrowers.get(indexB).deposit>=3000 && borrowers.get(indexB).cart.get(0).name.equals("bike"))){
-                borrowers.get(indexB).order.add(borrowers.get(indexB).cart.get(0));
-                System.out.println("Thank you for buying");
-                findVehicle(borrowers.get(indexB).cart.get(0).platenumber);
-                vehicles.get(indexV).avail-=1;
-                borrowers.get(indexB).cart.clear();
+            if((borrowers.get(indexB).deposit>=10000 && borrowers.get(indexB).cart.get(0).type.equals("car")) || (borrowers.get(indexB).deposit>=3000 && borrowers.get(indexB).cart.get(0).type.equals("bike"))){
+                if(borrowers.get(indexB).wallet>=borrowers.get(indexB).cart.get(0).cost){
+                    borrowers.get(indexB).order.add(borrowers.get(indexB).cart.get(0));
+                    System.out.println("Thank you for buying");
+                    findVehicle(borrowers.get(indexB).cart.get(0).platenumber);
+                    vehicles.get(indexV).avail-=1;
+                    borrowers.get(indexB).wallet-=borrowers.get(indexB).cart.get(0).cost;
+                    borrowers.get(indexB).cart.clear();
+                }
+                else System.out.println("Sorry you dont have enough money in wallet");
+            }
+            else{
+                System.out.println("You dont have enough security deposit, Please contact admin");
             }
         }
     }
@@ -411,5 +459,8 @@ class Borrower{
         this.cart=new ArrayList<>(cart);
         this.order=new ArrayList<>(order);
         this.rents=new ArrayList<>(rents);
+    }
+    public String toString(){
+        return name+"\t"+pass+"\t"+number+"\t"+Id+"\t"+wallet+"\t"+deposit;
     }
 }
