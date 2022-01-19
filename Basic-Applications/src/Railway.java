@@ -228,7 +228,7 @@ public class Railway{
         trueUser();
     }
     public static void movW(int a,int s,int e,int ticn){
-        int i1=a,i2=0,count=0,maxC=0,maxS=0,maxE=0,st=0;
+        int i1=a,i2=0,count=0,maxC=e-s+1,maxS=s,maxE=e,st=0;
         for(int j=0;j<7;j++){
             if(seats[i1][j]==0){
                 if(count==0)
@@ -236,12 +236,12 @@ public class Railway{
                 count++;
             }
             else if(seats[i1][j]==1){
-                if(count>maxC){
-                    maxC=count;
-                    if(j-1>maxE)maxE=j-1;
-                    maxS=st;
-                }
                 count=0;
+            }
+            if(count>maxC){
+                maxC=count;
+                if(j-1>maxE)maxE=j-1;
+                maxS=st;
             }
         }
         label1:for(int i=0;i<u.size();i++){
