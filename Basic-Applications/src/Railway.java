@@ -230,18 +230,18 @@ public class Railway{
     public static void movW(int a,int s,int e,int ticn){
         int i1=a,i2=0,count=0,maxC=0,maxS=0,maxE=0,st=0;
         for(int j=0;j<7;j++){
-            if(seats[i1][j]==1){
+            if(seats[i1][j]==0){
+                if(count==0)
+                st=j;
+                count++;
+            }
+            else if(seats[i1][j]==1){
                 if(count>maxC){
                     maxC=count;
                     if(j-1>maxE)maxE=j-1;
                     maxS=st;
                 }
                 count=0;
-            }
-            else if(seats[i1][j]==0){
-                if(count==0)
-                st=j;
-                count++;
             }
         }
         label1:for(int i=0;i<u.size();i++){
