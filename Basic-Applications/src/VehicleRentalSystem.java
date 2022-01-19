@@ -38,10 +38,9 @@ public class VehicleRentalSystem{
         System.out.println("1. Add a Vehicle");
         System.out.println("2. Modify a Vehicle");
         System.out.println("3. View Vehicles");
-        System.out.println("4. View Vehicles");
-        System.out.println("5. Search Vehicle");
-        System.out.println("6. Change SecurityDeposit");
-        System.out.println("7. Exit");
+        System.out.println("4. Search Vehicle");
+        System.out.println("5. Change SecurityDeposit");
+        System.out.println("6. Exit");
         int a = scanner.nextInt();
         switch(a){
             case 1: addVehicle();break;
@@ -67,7 +66,7 @@ public class VehicleRentalSystem{
         int avail = scanner.nextInt();
         System.out.println("Rent of the Vehicle");
         double cost = scanner.nextDouble();
-        vehicles.add(new Vehicle(name,type,platenumber,model,avail,0,"",cost));
+        vehicles.add(new Vehicle(name,type,platenumber,model,avail,0,"",cost,0));
         System.out.println("Vehicle added successfully");
     }
     public static void modifyVehicle() {
@@ -141,8 +140,47 @@ public class VehicleRentalSystem{
         viewVehicles();
     }
     public static void viewAll() {
-        System.out.println("S.No\tName\tType\tPlatenumber\tModel\tAvail\tDriven\tDamage\tCost");
+        System.out.println("S.No\tName\tType\tPlatenumber\tModel\tAvail\tDriven\tDamage\tCost\tTimes Rented");
         for(int i=0;i<vehicles.size();i++){
+            System.out.println((i+1)+"\t"+vehicles.get(i));
+        }
+    }
+    public static void viewToService() {
+        System.out.println("S.No\tName\tType\tPlatenumber\tModel\tAvail\tDriven\tDamage\tCost\tTimes Rented");
+        for(int i=0;i<vehicles.size();i++){
+            if((vehicles.get(i).driven>1500 && vehicles.get(i).type.equals("bike"))||(vehicles.get(i).driven>3000 && vehicles.get(i).type.equals("car")))
+                System.out.println((i+1)+"\t"+vehicles.get(i));
+        }
+    }
+    public static void viewSortedRent(){
+        sortbyRent(vehicles);
+        System.out.println("S.No\tName\tType\tPlatenumber\tModel\tAvail\tDriven\tDamage\tCost\tTimes Rented");
+        for(int i=0;i<vehicles.size();i++){
+            System.out.println((i+1)+"\t"+vehicles.get(i));
+        }
+    }
+    public static void sortbyRent(ArrayList<Vehicle> vehicles){
+        for(int i=0;i<vehicles.size()-1;i++){
+            for(int j=i+1;j<vehicles.size();j++){
+                if(vehicles.get(i).cost>vehicles.get(j).cost){
+                    Book temp = vehicles.get(i);
+                    vehicles.set(i,vehicles.get(j));
+                    vehicles.set(j,temp);
+                }
+            }
+        }
+    }
+    public static void viewNotRented() {
+        System.out.println("S.No\tName\tType\tPlatenumber\tModel\tAvail\tDriven\tDamage\tCost\tTimes Rented");
+        for(int i=0;i<vehicles.size();i++){
+            if(vehicles.get(i).rented==0)
+            System.out.println((i+1)+"\t"+vehicles.get(i));
+        }
+    }
+    public static void viewRented(){
+        System.out.println("S.No\tName\tType\tPlatenumber\tModel\tAvail\tDriven\tDamage\tCost\tTimes Rented");
+        for(int i=0;i<vehicles.size();i++){
+            if(vehicles.get(i).rented>0)
             System.out.println((i+1)+"\t"+vehicles.get(i));
         }
     }
@@ -158,11 +196,30 @@ public class VehicleRentalSystem{
     public static void searchVehicle(){
         System.out.println("1. Search by Name");
         System.out.println("2. Search by Available count");
+        System.out.println("3. Search using Filter");
         int a = scanner.nextInt();
         switch(a){
             case 1:searchByName();break;
             case 2:searchByAvail();break;
+            case 3:searchByFilter();break;
             default: trueAdmin();
+        }
+    }
+    public static void searchByFilter(){
+        ArrayList<String> temp = new ArrayList<>();
+        for(int i=0;i<vehicles.size();i++){
+            if(!temp.contains(vehicles.get(i).type)){
+                System.out.println(vehicles.get(i).type);
+                temp.add(vehicles.get(i).type);
+            }
+        }
+        System.out.println("Enter a filter");
+        scanner.nextLine();
+        String w = scanner.nextLine();
+        for(int i=0;i<vehicles.size();i++){
+            if(vehicles.get(i).type.equals(w)){
+                System.out.println(vehicles.get(i));
+            }
         }
     }
     public static void searchByName(){
@@ -263,7 +320,8 @@ public class VehicleRentalSystem{
         System.out.println("3. Add Money to wallet");
         System.out.println("4. View Wallet");
         System.out.println("5. Return");
-        System.out.println("6. Exit");
+        System.out.println("6. View Previous Rents");
+        System.out.println("7. Exit");
         int a = scanner.nextInt();
         switch(a){
             case 1:{
@@ -282,9 +340,15 @@ public class VehicleRentalSystem{
             case 3:addMoney();break;
             case 4:viewWallet(); break;
             case 5:returnCar(); break;
+            case 6:viewRents(); break;
             default:borrowerHome();
         }
         trueBorrower();
+    }
+    public static void viewRents() {
+        for(int i=0;i<borrowers.get(indexB).rents.size();i++){
+            System.out.println(borrowers.get(indexB).rents.get(i));
+        }
     }
     public static boolean checkinCart(String platenumber){
         for(int i=0;i<borrowers.get(indexB).cart.size();i++){
@@ -334,7 +398,10 @@ public class VehicleRentalSystem{
                     borrowers.get(indexB).order.add(borrowers.get(indexB).cart.get(0));
                     System.out.println("Thank you for buying");
                     findVehicle(borrowers.get(indexB).cart.get(0).platenumber);
-                    vehicles.get(indexV).avail-=1;
+                    String r = borrowers.get(indexB).cart.get(0).name+"\t"+borrowers.get(indexB).cart.get(0).model+"\t"+borrowers.get(indexB).cart.get(0).cost;
+                    borrowers.get(indexB).rents.add(r);
+                    vehicles.get(indexV).avail--;
+                    vehicles.get(indexV).rented++;
                     borrowers.get(indexB).wallet-=borrowers.get(indexB).cart.get(0).cost;
                     borrowers.get(indexB).cart.clear();
                 }
@@ -424,9 +491,9 @@ public class VehicleRentalSystem{
 }
 class Vehicle{
     String name,type,platenumber,model,damage;
-    int avail,driven;
+    int avail,driven,rented;
     double cost;
-    Vehicle(String name,String type,String platenumber,String model,int avail,int driven,String damage,double cost){
+    Vehicle(String name,String type,String platenumber,String model,int avail,int driven,String damage,double cost,int rented){
         this.name=name;
         this.type=type;
         this.platenumber=platenumber;
@@ -435,9 +502,10 @@ class Vehicle{
         this.cost=cost;
         this.driven=driven;
         this.damage=damage;
+        this.rented=rented;
     }
     public String toString(){
-        return name+"\t"+type+"\t"+platenumber+"\t"+model+"\t"+avail+"\t"+driven+"\t"+damage+"\t"+cost;
+        return name+"\t"+type+"\t"+platenumber+"\t"+model+"\t"+avail+"\t"+driven+"\t"+damage+"\t"+cost+"\t"+rented;
     }
     public String display(){
         return name+"\t"+type+"\t"+platenumber+"\t"+model+"\t"+avail+"\t"+cost;
