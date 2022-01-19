@@ -228,7 +228,7 @@ public class Railway{
         trueUser();
     }
     public static void movW(int a,int s,int e,int ticn){
-        int i1=a,i2=0,count=0,maxC=e-s+1,maxS=s,maxE=e,st=0;
+        int i1=a,count=0,maxC=e-s+1,maxS=s,maxE=e,st=0;
         for(int j=0;j<7;j++){
             if(seats[i1][j]==0){
                 if(count==0)
@@ -253,8 +253,7 @@ public class Railway{
                             seats[a][k]=waitList[u.get(i).booked.get(j).seat-11][k];
                             waitList[u.get(i).booked.get(j).seat-11][k]=0;
                         }
-                        i2=u.get(i).booked.get(j).seat-11;
-                        u.get(i).booked.get(j).seat=+1;
+                        u.get(i).booked.get(j).seat=(a+1);
                         break label1;
                     }
                 }
