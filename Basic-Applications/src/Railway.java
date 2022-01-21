@@ -169,7 +169,7 @@ public class Railway{
             }
             if(sum==0){
                 for(int j=s;j<=e;j++){
-                    seats[i][j]=1;               //(0)  1111000    (1)  0000000
+                    seats[i][j]=1;
                 }
                 check=1;
             }
@@ -187,7 +187,7 @@ public class Railway{
                     sum+=waitList[i][j];
                 }
                 if(sum==0){
-                    for(int j=s;j<=e;j++){         //(0) 0011111   (11)
+                    for(int j=s;j<=e;j++){
                         waitList[i][j]=1;
                     }
                     check=2;
