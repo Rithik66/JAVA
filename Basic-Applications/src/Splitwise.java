@@ -47,7 +47,7 @@ public class Splitwise {
         }
         else{
             System.out.println("Account created sucessfully");
-            friends.add(new Friends(name,password,number,email,new ArrayList<>(),0,new ArrayList<>()));
+            friends.add(new Friends(name,password,number,email,new ArrayList<>(),0,new ArrayList<>(),new ArrayList<>()));
         }
         System.out.println("--------------------------");
         enter();
@@ -198,6 +198,7 @@ public class Splitwise {
         else{
             System.out.println("Sorry you dont have enough money");
         }
+        scanner.nextLine();
         enter();
         clear();
         trueLogin();
@@ -225,7 +226,7 @@ public class Splitwise {
         String password = scanner.nextLine();
         System.out.println("Enter mobile number");
         String number = scanner.nextLine();
-        friends.add(new Friends(name,password,number,new ArrayList<>(),0,new ArrayList<>(),new ArrayList<>()));
+        friends.add(new Friends(name,password,number,email,new ArrayList<>(),0,new ArrayList<>(),new ArrayList<>()));
         enter();
         clear();
         trueLogin();
@@ -303,12 +304,12 @@ public class Splitwise {
         s+=s;
     }
     public static void frnds() {
-        friends.add(new Friends("rithik","1234","9489771170","abc@gmail.com",new ArrayList<>(),1200,new ArrayList<>()));
-        friends.add(new Friends("raghul","4321","7824912352","acb@gmail.com",new ArrayList<>(),1500,new ArrayList<>()));
-        friends.add(new Friends("vishnu","1243","6385505455","bac@gmail.com",new ArrayList<>(),1450,new ArrayList<>()));
-        friends.add(new Friends("survesh","4312","9659452070","bca@gmail.com",new ArrayList<>(),1700,new ArrayList<>()));
-        friends.add(new Friends("naresh","2143","9944476007","cab@gmail.com",new ArrayList<>(),1690,new ArrayList<>()));
-        friends.add(new Friends("moune","3412","8903453907","cba@gmail.com",new ArrayList<>(),1470,new ArrayList<>()));
+        friends.add(new Friends("rithik","1234","9489771170","abc@gmail.com",new ArrayList<>(),1200,new ArrayList<>(),new ArrayList<>()));
+        friends.add(new Friends("raghul","4321","7824912352","acb@gmail.com",new ArrayList<>(),1500,new ArrayList<>(),new ArrayList<>()));
+        friends.add(new Friends("vishnu","1243","6385505455","bac@gmail.com",new ArrayList<>(),1450,new ArrayList<>(),new ArrayList<>()));
+        friends.add(new Friends("survesh","4312","9659452070","bca@gmail.com",new ArrayList<>(),1700,new ArrayList<>(),new ArrayList<>()));
+        friends.add(new Friends("naresh","2143","9944476007","cab@gmail.com",new ArrayList<>(),1690,new ArrayList<>(),new ArrayList<>()));
+        friends.add(new Friends("moune","3412","8903453907","cba@gmail.com",new ArrayList<>(),1470,new ArrayList<>(),new ArrayList<>()));
     }
 }
 class Friends{

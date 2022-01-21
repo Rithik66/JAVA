@@ -48,9 +48,12 @@ public class Railway{
         home();
     }
     public static void cS(){
+        System.out.println("   C T E S K P CH\n");
         for(int i=0;i<10;i++){
+            if(i<9)System.out.print((i+1)+"   ");
+            else System.out.print((i+1)+"  "); 
             for(int j=0;j<7;j++){
-                System.out.print(seats[i][j]);
+                System.out.print(seats[i][j]+" ");
             }
             System.out.println();
         }
@@ -145,7 +148,7 @@ public class Railway{
         System.out.println("Enter departure point : ");
         int b=scanner.nextInt();//5
         System.out.println();
-        if(b<a) System.out.println("invalid information");
+        if(b<a || a>7 || b>7) System.out.println("invalid information");
         else{
             u.get(indexU).boarding=r[a-1];//r[1-1(0)]
             u.get(indexU).departure=r[b-1];//r[5-1(4)]
