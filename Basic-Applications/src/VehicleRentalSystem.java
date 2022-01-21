@@ -27,10 +27,13 @@ public class VehicleRentalSystem{
         String password = scanner.nextLine();
         if(email.equals("adminvrs@gmail.com") && password.equals("12345")){
             System.out.println("Logged in successfully");
+            enter();
+            clear();
             trueAdmin();
         }
         else{
             System.out.println("Invalid credentials");
+            enter();clear();
             home();
         }
     }
@@ -50,6 +53,8 @@ public class VehicleRentalSystem{
             case 6: changeDeposit(); break;
             default : home();
         }
+        enter();
+        clear();
         trueAdmin();
     }
     public static void addVehicle() {
@@ -285,10 +290,16 @@ public class VehicleRentalSystem{
         String pass = scanner.nextLine();
         if(checkBorrower(name,pass)){
              System.out.println("Login sucessfully");
+             enter();
+             clear();
              trueBorrower();
         }
-        else System.out.println("Enter valid details");
-        borrowerHome();
+        else {
+            System.out.println("Enter valid details");
+            enter();
+            clear();
+            borrowerHome();
+        }
     }
     public static void signUp() {
         scanner.nextLine();
@@ -303,6 +314,8 @@ public class VehicleRentalSystem{
             borrowers.add(new Borrower(name,pass,number,borrowers.size()+1,0,30000,new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
             System.out.println("Account added sucessfully");
         }
+        enter();
+        clear();
         borrowerHome();
     }
     public static boolean checkBorrower(String name,String pass) {
@@ -343,6 +356,8 @@ public class VehicleRentalSystem{
             case 6:viewRents(); break;
             default:borrowerHome();
         }
+        enter();
+        clear();
         trueBorrower();
     }
     public static void viewRents() {
@@ -487,6 +502,15 @@ public class VehicleRentalSystem{
                 break;
             }
         }
+    }
+    public static void clear(){
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();
+    }
+    public static void enter() {
+        System.out.println("Press ENTER to continue");
+        String s = scanner.nextLine();
+        s+=s;
     }
 }
 class Vehicle{
