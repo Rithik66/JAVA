@@ -100,7 +100,8 @@ public class Splitwise {
         System.out.println("6. Add Money to your wallet");
         System.out.println("7. View Wallet");
         System.out.println("8. Create a Group");
-        System.out.println("9. Exit");
+        System.out.println("9. View Transactions");
+        System.out.println("10. Exit");
         System.out.println("--------------------------");
         int a = scanner.nextInt();
         clear();
@@ -141,7 +142,6 @@ public class Splitwise {
         System.out.println("Name\t|Mobile\t\t|(Y/N)");
         System.out.println("-------------------------------");
         for(int i=0;i<friends.size();i++){
-            if(i==indexF) continue;
             System.out.print(friends.get(i).name+"\t|"+friends.get(i).number+"\t|");
             String choice = scanner.nextLine().toUpperCase();
             if(choice.equals("Y") || choice.equals("YES")) Gcame.add(i);
@@ -166,7 +166,8 @@ public class Splitwise {
             for(int i=0;i<friends.size();i++){
                 if(i==indexF) continue;
                 came.add(i);
-            } 
+            }
+            scanner.nextLine();
         }
         else if(a==1){
             if(group.size()>0){
@@ -179,7 +180,11 @@ public class Splitwise {
                 System.out.print("Enter a group name : ");
                 scanner.nextLine();
                 String name = scanner.nextLine();
-                came=new ArrayList<>(group.get(name));
+                came.clear();
+                for(int i=0;i<group.get(name).size();i++){
+                    if(group.get(name).get(i)==indexF) continue;
+                    came.add(group.get(name).get(i));
+                }
             }
             else {
                 System.out.println("Please create a group");
@@ -204,7 +209,7 @@ public class Splitwise {
         trueLogin();
     }
     public static void addAmountToFriends(double bill,String name,String number){
-        double div = (bill-(bill/(came.size()+1)))/(came.size()-1);
+        double div = (bill-(bill/(came.size()+1)))/(came.size());
         for(int i=0;i<came.size();i++){
             friends.get(came.get(i)).pay.add(new Pay(name,div,number));
         }
@@ -226,6 +231,8 @@ public class Splitwise {
         String password = scanner.nextLine();
         System.out.println("Enter mobile number");
         String number = scanner.nextLine();
+        System.out.println("Enter email Id");
+        String email = scanner.nextLine();
         friends.add(new Friends(name,password,number,email,new ArrayList<>(),0,new ArrayList<>(),new ArrayList<>()));
         enter();
         clear();
@@ -243,8 +250,8 @@ public class Splitwise {
                 friends.get(indexF).wallet-=friends.get(indexF).pay.get(a-1).amount;
                 int ind=checkFriend2(friends.get(indexF).pay.get(a-1).name,friends.get(indexF).pay.get(a-1).number);
                 friends.get(ind).wallet+=friends.get(indexF).pay.get(a-1).amount;
-                friends.get(ind).trans.add("Recived\t"+friends.get(ind).name+"\t"+friends.get(ind).number+"\t"+friends.get(indexF).pay.get(a-1).amount);
-                friends.get(indexF).trans.add("Recived\t"+friends.get(indexF).name+"\t"+friends.get(indexF).number+"\t"+friends.get(indexF).pay.get(a-1).amount);
+                friends.get(ind).trans.add("Recieved\t"+friends.get(indexF).name+"\t"+friends.get(indexF).number+"\t"+friends.get(indexF).pay.get(a-1).amount);
+                friends.get(indexF).trans.add("Send\t"+friends.get(ind).name+"\t"+friends.get(ind).number+"\t"+friends.get(indexF).pay.get(a-1).amount);
                 friends.get(indexF).pay.remove(a-1);
             }
             else{
@@ -326,6 +333,7 @@ class Friends{
         this.email=email;
         this.expenses=new ArrayList<>(expenses);
         this.pay=new ArrayList<>(pay);
+        this.trans=new ArrayList<>(trans);
     }
 }
 class Expense{
