@@ -378,7 +378,12 @@ public class ATM{
         String s1 = scanner.nextLine();
         System.out.println("Enter the amount to transfer : ");
         Double d = scanner.nextDouble();
-        tranTo(s,s1,d);
+        if(u[index].ifsc.equals(s) && u[index].acc.equals(s1)){
+            System.out.println("Cant transfer money to same account");
+        }
+        else{
+            tranTo(s,s1,d);
+        }
         System.out.println("press ENTER to continue !!! ");
         scanner.nextLine();
         String s2 = scanner.nextLine();
