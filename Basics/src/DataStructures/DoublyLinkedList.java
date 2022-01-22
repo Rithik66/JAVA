@@ -1,5 +1,4 @@
-package Javatraining;
-
+package DataStructures;
 import java.util.NoSuchElementException;
 
 public class DoublyLinkedList {

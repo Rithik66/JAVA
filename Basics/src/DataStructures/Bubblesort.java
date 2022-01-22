@@ -1,8 +1,7 @@
 package DataStructures;
-
 public class Bubblesort {
     public static void main(String[] args) {
-    System.out.println(bubble(new int[]{5,7,3,4,2,6,1}));
+        System.out.println(bubble(new int[]{5,7,3,4,2,6,1}));
     }
     public static int[] bubble(int arr[]) {
         for (int i=0;i<arr.length;i++) {
