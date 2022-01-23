@@ -1,7 +1,10 @@
 package DataStructures;
+
+import java.util.Arrays;
+
 public class BubblesortEFF {
     public static void main(String[] args) {
-        System.out.println(bubble(new int[]{5,7,3,4,2,6,1}));
+        System.out.println(Arrays.toString(bubble(new int[]{5,7,3,4,2,6,1})));
     }
     public static int[] bubble(int arr[]) {
         int flag;

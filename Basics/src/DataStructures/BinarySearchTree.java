@@ -1,4 +1,4 @@
-package Javatraining;
+package DataStructures;
 public class BinarySearchTree {
 	TreeNode root;
 	private class TreeNode{
