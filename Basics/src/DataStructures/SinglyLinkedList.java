@@ -273,3 +273,5 @@ public class SinglyLinkedList {
 		sixth.next=third;
 	}
 }
+
+//hi
