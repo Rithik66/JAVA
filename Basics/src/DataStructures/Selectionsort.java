@@ -5,7 +5,7 @@ public class Selectionsort {
         System.out.println(Arrays.toString(select(new int[]{5,7,3,4,2,6,1})));
     }
     public static int[] select(int arr[]) {
-        for (int i=0;i<arr.length;i++) {
+        for (int i=0;i<arr.length-1;i++) {
             int min=i;
             for (int j=i+1;j<arr.length;j++) {
                 if(arr[j]<arr[min]) min=j;
