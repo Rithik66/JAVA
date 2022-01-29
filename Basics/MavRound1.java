@@ -1,4 +1,4 @@
-public class Main{
+public class MavRound1{
     public static void main(String[] args) {
         String s = "teioautereeae";
         int max=Integer.MIN_VALUE;

@@ -1,4 +1,4 @@
-public class MavRound21 {
+public class MavRound2 {
     public static void main(String[] args) {
         String s1 = "Hiiamri";
         String s2 = "Hiiamrai";
