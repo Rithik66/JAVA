@@ -1,6 +1,6 @@
-public class MavRound1 {
+public class Main{
     public static void main(String[] args) {
-        String s = "teioutereeeae";
+        String s = "teioautereeae";
         int max=Integer.MIN_VALUE;
         String result="";
         for(int i=0;i<s.length();i++){
