@@ -7,7 +7,7 @@ public class MavRound1 {
             for(int j=i;j<s.length();j++){
                 String ans="";
                 for(int k=i;k<=j;k++){
-                    ans+=s.charAt(i);
+                    ans+=s.charAt(k);
                 }
                 if(check(ans)){
                     if(ans.length()>max){
