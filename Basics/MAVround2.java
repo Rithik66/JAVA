@@ -1,5 +1,5 @@
-public class MAVround2{
-    public static void main(String[] args){
+public class MavRound21 {
+    public static void main(String[] args) {
         String s1 = "Hiiamri";
         String s2 = "Hiiamrai";
         char[] c1 = s1.length()<s2.length()
