@@ -41,7 +41,7 @@ public class FishPattern{
             }
            System.out.println();
         }
-        int st1=1,st2=1,t=a,k=a;;
+        int st1=1,st2=1,t=a,k=a;
         for(int i=0;i<a;i++) {
         	for(int j=0;j<st1;j++){
         		System.out.print("* ");
