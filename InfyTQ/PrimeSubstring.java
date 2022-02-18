@@ -1,4 +1,7 @@
 /*
+-----------------------------------------------------------------------------------------------------------
+Problem Statement
+-----------------------------------------------------------------------------------------------------------
 Consider a positive number innum. Identify and print the number outnum based on the below
 logic
     • Find all the possible sub sequences without leading 0’s of the innum which form prime
@@ -9,6 +12,35 @@ logic
     • If there exists no such subsequence print -1.
 
 Note: 0 and 1 are not prime numbers
+-----------------------------------------------------------------------------------------------------------
+Input format
+Read the innum from the standard input stream.
+-----------------------------------------------------------------------------------------------------------
+Output format
+Print the outnum to the standard output stream.
+-----------------------------------------------------------------------------------------------------------
+Sample Input 1:
+50678
+
+Sample Output 1:
+67
+
+Explanation 1:
+For the given innum i.e. 50678 the sub sequences without leading 0’s formed are 5, 
+50, 506,5067, 50678, 5068, 507, 5078, 508, 56, 567, 5678, 568, 57,578, 58, 6, 67, 678, 
+68, 7, 78 and 8. Among these 5, 7 and 67 are prime numbers. Hence 67 is the highest 
+prime number. Hence the output.
+-----------------------------------------------------------------------------------------------------------
+Sample Input 2:
+140
+
+Sample Output 2:
+-1
+
+Explanation 2:
+For the given innum, i.e. 140 the subsequence formed are 1, 14, 140, 10, 4, 40 and 0. 
+None of the sub sequences are prime numbers. Hence the output is -1
+-----------------------------------------------------------------------------------------------------------
 */
 
 import java.util.*;
