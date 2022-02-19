@@ -10,48 +10,38 @@ public class SubsequceCheckAfterConcat {
         for(int i=0;i<s1.length;i++){
             for(int j=0;j<s2.length;j++){
                 String s=s1[i]+s2[j];
-                //subsequence(s,s3);
-                if(check(s,s3)) {
+                //System.out.println(s);
+                check(s,s3);
+            }
+        }
+        Collections.sort(li);
+        if(li.size()==0) System.out.println(-1);
+        else System.out.println(li);
+    }
+    public static void check(String s,String[] s3){
+        s=s.toUpperCase();
+        for(int i=0;i<s3.length;i++){
+            int in=0,flag=0;
+            //System.out.println(s3[i]+" "+s);
+            String st=s3[i].toUpperCase();
+            for(int j=0;j<s3[i].length();j++){
+                if(s.contains(st.charAt(j)+"")){
+                    //System.out.println(s3[i].charAt(j));
+                    if(in>s.indexOf(st.charAt(j))) in=-1;
+                    else in=s.indexOf(st.charAt(j));
+                }
+                else {
+                    flag=1;
+                    break;
+                }
+                if(in<0) {
                     flag=1;
                     break;
                 }
             }
+            if(flag==0)
+                if(!li.contains(s3[i])) li.add(s3[i]);
+                //System.out.println(li);
         }
-        Collections.sort(li);
-        if(flag==0) System.out.println(-1);
-        else 
-        System.out.println(li);
     }
-    public static boolean check(String s,String[] s3){
-        s=s.toUpperCase();
-        for(int i=0;i<s3.length;i++){
-            int sum=0;
-            for(int j=0;j<s3[i].length();j++){
-                if(!s.contains(s3[i].toUpperCase().charAt(j)+"")) return false;
-                sum=s.indexOf(s3[i].toUpperCase().charAt(j))-sum;
-                if(sum<0) return false;
-            }
-            if(!li.contains(s3[i])) li.add(s3[i]);
-            return true;
-        }
-        return true;
-    }
-    // public static void subsequence(String s,String []arr){
-    //     int n=s.length();
-    //     int limit=(int)Math.pow(2,n);
-    //     for(int i=1;i<limit;i++){
-    //         int temp=i;
-    //         String str="";
-    //         for(int j=0;j<n;j++){
-    //             int res=temp%2;
-    //             temp/=2;
-    //             if(res==1) str+=s.charAt(j);
-    //         }
-    //         for(int k=0;k<arr.length;k++){
-    //             if(str.equalsIgnoreCase(arr[k])) 
-    //                 if(!li.contains(arr[k]))
-    //                     li.add(arr[k]);
-    //         }
-    //     }
-    // }
 }
