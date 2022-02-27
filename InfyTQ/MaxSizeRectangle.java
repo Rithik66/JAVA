@@ -12,7 +12,7 @@ public class MaxSizeRectangle{
 		}
 		print(arr);
 	}
-	public static int print(int[][] arr){
+	public static void print(int[][] arr){
 	int n=arr.length,m=arr[0].length;
     	int res=0,max=Integer.MIN_VALUE;
         for(int j=0;j<m;j++){
