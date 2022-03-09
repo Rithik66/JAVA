@@ -8,7 +8,7 @@ public class Permutations {
 		Scanner scanner = new Scanner(System.in);
         String s = scanner.nextLine();
         permutation(s,"");
-        System.out.println(ar);
+        ar.forEach();
         scanner.close();
 	}
 	private static void permutation(String s,String bl) {
