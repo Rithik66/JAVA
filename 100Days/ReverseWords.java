@@ -9,7 +9,7 @@ public class reverseWords {
         for(int i=arr.length-1;i>=0;i--){
             str+=arr[i];
             if(i!=0)str+=".";
-        } //hi
+        } //Check
         return str;
     }
 }
