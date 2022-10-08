@@ -1,4 +1,3 @@
-package DataStructures;
 import java.util.Arrays;
 public class Selectionsort {
     public static void main(String[] args) {

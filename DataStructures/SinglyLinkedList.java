@@ -1,4 +1,3 @@
-package DataStructures;
 
 public class SinglyLinkedList {
 	private ListNode head;

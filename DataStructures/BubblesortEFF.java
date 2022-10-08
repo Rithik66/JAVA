@@ -1,4 +1,3 @@
-package DataStructures;
 
 import java.util.Arrays;
 
