@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 public class FuncGcd {
 	static int findValue(int x,int y) {
-		int k=0,g=0;
-		if(x<y) k=x;
-		else k=y;
-		for(int i=1;i<=k;i++) {
-			if(x%i==0 && y%i==0) g=i;
+		int small=0,large=0;
+		if(x<y) small=x;
+		else small=y;
+		for(int i=1;i<=small;i++) {
+			if(x%i==0 && y%i==0) large=i;
 		}
-		return g;
+		return large;
 	}
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
